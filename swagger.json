@@ -1,0 +1,236 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Kind Words API",
+    "version": "0.0.1",
+    "title": "Kind Words API",
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "host": "localhost:3000",
+  "paths": {
+    "/api/sentence": {
+      "get": {
+        "summary": "FETCH",
+        "description": "Returns a array of all sentences",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sentence"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/Invalid-Response"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "CREATE",
+        "description": "Create a new sentence",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "document",
+            "in": "body",
+            "description": "Document to create",
+            "type": "object",
+            "example": {
+              "sentence": "You're doing well today"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "$ref": "#/definitions/Sentence"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/Invalid-Response"
+            }
+          }
+        }
+      }
+    },
+    "/api/sentence/{id}": {
+      "get": {
+        "summary": "FETCH ONE",
+        "description": "Returns a sentence by id",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Document ID",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sentence"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/Invalid-Response"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "UPDATE",
+        "description": "Update an existing sentence",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Document ID",
+            "type": "string"
+          },
+          {
+            "name": "document",
+            "in": "body",
+            "description": "Document to edit",
+            "type": "object",
+            "example": {
+              "sentence": "You're doing well toady"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "$ref": "#/definitions/Sentence"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/Invalid-Response"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "DELETE",
+        "description": "Delete a sentence by id",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Document ID",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {}
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/Invalid-Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Sentence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sentence": {
+          "type": "string"
+        }
+      }
+    },
+    "Invalid-Response": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
