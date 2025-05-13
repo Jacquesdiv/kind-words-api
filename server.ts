@@ -33,3 +33,5 @@ server.listen(port, () => console.log(`API listening on localhost:${port}`));
 
 // initialize services 
 Services.instance();
+
+console.log('test');
